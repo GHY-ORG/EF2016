@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<!-- Appenders -->
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<!-- 表示log日志的输出位置为系统输出，一般就是控制台。 -->
+		<param name="Threshold" value="INFO"/>  
+    	<!--Threshold是个全局的过滤器，他将把低于所设置的level的信息过滤不显示出来-->  	
+		<layout class="org.apache.log4j.PatternLayout">
+		<!-- 设置日志输出的格式-->  
+			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
+			<!-- 5表示宽度为5（即输出结果以5个字符宽度对齐），负号表示左对齐。
+				%c 输出所属的类目，通常就是所在类的全名
+				%m是strerror(errno)的替代
+				%n 输出一个回车换行符，Windows平台为“/r/n”，Unix平台为“/n” 
+			 -->
+		</layout>
+	</appender>
+	
+	<!--
+       	    （1）level:是日记记录的优先级，优先级由高到低分为    
+        OFF ,FATAL ,ERROR ,WARN ,INFO ,DEBUG ,ALL。   
+        Log4j建议只使用FATAL ,ERROR ,WARN ,INFO ,DEBUG这四个级别。
+		
+		    （2）指定logger的设置，additivity指示是否叠加输出log，如果是false，
+      	在name为“cn.ghy.ef.controller”的logger中，日志不会被其它logger满
+      	足条件的logger(比如root)输出。
+			
+		    （3）appender-ref将名称为cn.ghy.ef.controller的logger，输出到
+		“console”的appender。所谓logger的名字也就是，在定义Logger时，构造函
+		数的参数Logger log = Logger.getLogger("cn.ghy.ef.controller");   
+    -->  
+
+	<!-- Application Loggers -->
+	<logger name="cn.ghy.ef.controller" additivity="false">
+		<level class="org.apache.log4j.Level" value="info" />
+		<appender-ref ref="console"/>  
+	</logger>
+	
+	<!-- 3rdparty Loggers -->
+	<logger name="org.springframework.core" additivity="false">
+		<level class="org.apache.log4j.Level" value="info" />
+		<appender-ref ref="console"/>  
+	</logger>
+	
+	<logger name="org.springframework.beans" additivity="false">
+		<level class="org.apache.log4j.Level" value="info" />
+		<appender-ref ref="console"/>  
+	</logger>
+	
+	<logger name="org.springframework.context" additivity="false">
+		<level class="org.apache.log4j.Level" value="info" />
+		<appender-ref ref="console"/>  
+	</logger>
+
+	<logger name="org.springframework.web" additivity="false">
+		<level class="org.apache.log4j.Level" value="info" />
+		<appender-ref ref="console"/>  
+	</logger>
+
+	<!-- Root Logger -->
+	<root>
+		<priority value="info" />
+		<appender-ref ref="console" />
+	</root>
+	
+</log4j:configuration>
